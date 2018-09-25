@@ -26,7 +26,7 @@
 
     <modules>
         <module>elastic-job-lite-core</module>
-        <module>elastic-job-lite-chedule-quartz16</module>
+        <module>elastic-job-lite-schedule-quartz16</module>
     </modules>
 
     <dependencies>
