@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>io.elasticjob</groupId>
+        <artifactId>elastic-job-lite</artifactId>
+        <version>3.0.0.M1</version>
+    </parent>
+    <artifactId>elastic-job-lite-chedule-quartz16</artifactId>
+    <name>${project.artifactId}</name>
+
+    <properties>
+        <quartz.version>1.6.0</quartz.version>
+        <commons-collections.version>3.2.1</commons-collections.version>
+        <jta.version>1.1</jta.version>
+        <commons-logging.version>1.2</commons-logging.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.elasticjob</groupId>
+            <artifactId>elastic-job-lite-core</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>appframe</groupId>
+            <artifactId>quartz-all</artifactId>
+            <version>${quartz.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>${commons-collections.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.transaction</groupId>
+            <artifactId>jta</artifactId>
+            <version>${jta.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>${commons-logging.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>
