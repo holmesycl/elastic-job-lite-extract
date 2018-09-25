@@ -8,7 +8,7 @@
         <artifactId>elastic-job-lite</artifactId>
         <version>3.0.0.M1</version>
     </parent>
-    <artifactId>elastic-job-lite-chedule-quartz16</artifactId>
+    <artifactId>elastic-job-lite-schedule-quartz16</artifactId>
     <name>${project.artifactId}</name>
 
     <properties>
