@@ -2,13 +2,13 @@ package io.elasticjob.lite.internal.schedule.impl.quartz16.controller;
 
 import io.elasticjob.lite.exception.JobSystemException;
 import io.elasticjob.lite.internal.schedule.JobScheduleController;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.quartz.*;
 
 import java.text.ParseException;
 
-@Data
+@Setter
 @RequiredArgsConstructor
 public class Quartz16JobScheduleController implements JobScheduleController {
 

@@ -2,8 +2,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.elasticjob</groupId>
-    <artifactId>elastic-job-lite</artifactId>
-    <version>3.0.0.M1</version>
+    <artifactId>elastic-job-lite-ext</artifactId>
+    <version>3.0.2</version>
     <name>${project.artifactId}</name>
     <packaging>pom</packaging>
     <description>Elastic-Job - distributed scheduled job solution</description>
@@ -111,5 +111,12 @@
             <layout>default</layout>
         </repository>
     </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>maven-public</id>
+            <url>http://10.10.152.145:8081/repository/project-local/</url>
+        </repository>
+    </distributionManagement>
 
 </project>

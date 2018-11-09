@@ -84,7 +84,7 @@ public class JobScheduler {
     public void init() {
         LiteJobConfiguration liteJobConfigFromRegCenter = schedulerFacade.updateJobConfiguration(liteJobConfig);
         JobRegistry.getInstance().setCurrentShardingTotalCount(liteJobConfigFromRegCenter.getJobName(), liteJobConfigFromRegCenter.getTypeConfig().getCoreConfig().getShardingTotalCount());
-        JobScheduleController jobScheduleController = JobScheduleControllerFactoryBuilder.build(schedulerFacade, jobFacade, liteJobConfigFromRegCenter).create();
+        JobScheduleController jobScheduleController = JobScheduleControllerFactoryManager.obtain().create(schedulerFacade, jobFacade, liteJobConfigFromRegCenter);
         JobRegistry.getInstance().registerJob(liteJobConfigFromRegCenter.getJobName(), jobScheduleController, regCenter);
         schedulerFacade.registerStartUpInfo(!liteJobConfigFromRegCenter.isDisabled());
         jobScheduleController.scheduleJob(liteJobConfigFromRegCenter.getTypeConfig().getCoreConfig().getCron());

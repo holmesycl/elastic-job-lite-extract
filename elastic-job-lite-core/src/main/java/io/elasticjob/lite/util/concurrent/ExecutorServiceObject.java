@@ -21,11 +21,7 @@ import com.google.common.base.Joiner;
 import com.google.common.util.concurrent.MoreExecutors;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * 线程池执行服务对象.
@@ -33,18 +29,22 @@ import java.util.concurrent.TimeUnit;
  * @author zhangliang
  */
 public final class ExecutorServiceObject {
-    
+
     private final ThreadPoolExecutor threadPoolExecutor;
-    
+
     private final BlockingQueue<Runnable> workQueue;
-    
-    public ExecutorServiceObject(final String namingPattern, final int threadSize) {
+
+    public ExecutorServiceObject(final String namingPattern, final int corePoolSize, final int maximumPoolSize) {
         workQueue = new LinkedBlockingQueue<>();
-        threadPoolExecutor = new ThreadPoolExecutor(threadSize, threadSize, 5L, TimeUnit.MINUTES, workQueue, 
+        threadPoolExecutor = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, 5L, TimeUnit.MINUTES, workQueue,
                 new BasicThreadFactory.Builder().namingPattern(Joiner.on("-").join(namingPattern, "%s")).build());
         threadPoolExecutor.allowCoreThreadTimeOut(true);
     }
-    
+
+    public ExecutorServiceObject(final String namingPattern, final int threadSize) {
+        this(namingPattern, threadSize, threadSize);
+    }
+
     /**
      * 创建线程池服务对象.
      *
@@ -53,11 +53,11 @@ public final class ExecutorServiceObject {
     public ExecutorService createExecutorService() {
         return MoreExecutors.listeningDecorator(MoreExecutors.getExitingExecutorService(threadPoolExecutor));
     }
-    
+
     public boolean isShutdown() {
         return threadPoolExecutor.isShutdown();
     }
-    
+
     /**
      * 获取当前活跃的线程数.
      *
@@ -66,7 +66,7 @@ public final class ExecutorServiceObject {
     public int getActiveThreadCount() {
         return threadPoolExecutor.getActiveCount();
     }
-    
+
     /**
      * 获取待执行任务数量.
      *

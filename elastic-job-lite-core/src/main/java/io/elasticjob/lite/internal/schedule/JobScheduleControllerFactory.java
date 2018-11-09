@@ -2,16 +2,9 @@ package io.elasticjob.lite.internal.schedule;
 
 import io.elasticjob.lite.config.JobRootConfiguration;
 import io.elasticjob.lite.executor.JobFacade;
-import lombok.Data;
 
-@Data
-public abstract class JobScheduleControllerFactory {
+public interface JobScheduleControllerFactory {
 
-    private SchedulerFacade schedulerFacade;
+    JobScheduleController create(SchedulerFacade schedulerFacade, JobFacade jobFacade, JobRootConfiguration jobRootConfiguration);
 
-    private JobFacade jobFacade;
-
-    private JobRootConfiguration jobRootConfiguration;
-
-    public abstract JobScheduleController create();
 }

@@ -26,34 +26,45 @@ import java.util.concurrent.ExecutorService;
 
 /**
  * 线程池服务处理器注册表.
- * 
+ *
  * @author zhangliang
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ExecutorServiceHandlerRegistry {
-    
+
     private static final Map<String, ExecutorService> REGISTRY = new HashMap<>();
-    
+
     /**
-     * 获取线程池服务.
-     * 
-     * @param jobName 作业名称
-     * @param executorServiceHandler 线程池服务处理器
-     * @return 线程池服务
+     * @param executorServiceName
+     * @param executorService
+     * @return
      */
-    public static synchronized ExecutorService getExecutorServiceHandler(final String jobName, final ExecutorServiceHandler executorServiceHandler) {
-        if (!REGISTRY.containsKey(jobName)) {
-            REGISTRY.put(jobName, executorServiceHandler.createExecutorService(jobName));
+    public static synchronized void registry(final String executorServiceName, final ExecutorService executorService) {
+        if (!REGISTRY.containsKey(executorServiceName)) {
+            REGISTRY.put(executorServiceName, executorService);
         }
-        return REGISTRY.get(jobName);
     }
-    
+
+    public static synchronized ExecutorService getExecutorServiceHandler(final String executorServiceName, final ExecutorServiceHandler executorServiceHandler) {
+        if (!REGISTRY.containsKey(executorServiceName)) {
+            REGISTRY.put(executorServiceName, executorServiceHandler.createExecutorService(executorServiceName));
+        }
+        return REGISTRY.get(executorServiceName);
+    }
+
+    public static synchronized ExecutorService obtain(final String executorServiceName) {
+        if (!REGISTRY.containsKey(executorServiceName)) {
+            throw new RuntimeException("不存在的线程池服务。");
+        }
+        return REGISTRY.get(executorServiceName);
+    }
+
     /**
      * 从注册表中删除该作业线程池服务.
      *
-     * @param jobName 作业名称
+     * @param executorServiceName 名称
      */
-    public static synchronized void remove(final String jobName) {
-        REGISTRY.remove(jobName);
+    public static synchronized void remove(final String executorServiceName) {
+        REGISTRY.remove(executorServiceName);
     }
 }
