@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.elasticjob</groupId>
     <artifactId>elastic-job-lite-ext</artifactId>
-    <version>3.0.2</version>
+    <version>3.0.3</version>
     <name>${project.artifactId}</name>
     <packaging>pom</packaging>
     <description>Elastic-Job - distributed scheduled job solution</description>

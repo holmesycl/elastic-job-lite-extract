@@ -48,7 +48,7 @@ public final class JobEventBus {
     public JobEventBus(final JobEventConfiguration jobEventConfig) {
         this.jobEventConfig = jobEventConfig;
         executorServiceObject = new ExecutorServiceObject("job-event", Runtime.getRuntime().availableProcessors() * 2);
-        eventBus = new AsyncEventBus(executorServiceObject.createExecutorService());
+        eventBus = new AsyncEventBus(executorServiceObject.getExecutorService());
         register();
     }
     

@@ -17,12 +17,12 @@
 
 package io.elasticjob.lite.executor.handler;
 
+import io.elasticjob.lite.util.concurrent.ExecutorServiceObject;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
 
 /**
  * 线程池服务处理器注册表.
@@ -32,39 +32,18 @@ import java.util.concurrent.ExecutorService;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ExecutorServiceHandlerRegistry {
 
-    private static final Map<String, ExecutorService> REGISTRY = new HashMap<>();
+    private static final Map<String, ExecutorServiceObject> REGISTRY = new HashMap<>();
 
-    /**
-     * @param executorServiceName
-     * @param executorService
-     * @return
-     */
-    public static synchronized void registry(final String executorServiceName, final ExecutorService executorService) {
-        if (!REGISTRY.containsKey(executorServiceName)) {
-            REGISTRY.put(executorServiceName, executorService);
-        }
-    }
-
-    public static synchronized ExecutorService getExecutorServiceHandler(final String executorServiceName, final ExecutorServiceHandler executorServiceHandler) {
+    public static synchronized ExecutorServiceObject getExecutorServiceHandler(final String executorServiceName, final ExecutorServiceHandler executorServiceHandler) {
         if (!REGISTRY.containsKey(executorServiceName)) {
             REGISTRY.put(executorServiceName, executorServiceHandler.createExecutorService(executorServiceName));
         }
         return REGISTRY.get(executorServiceName);
     }
 
-    public static synchronized ExecutorService obtain(final String executorServiceName) {
-        if (!REGISTRY.containsKey(executorServiceName)) {
-            throw new RuntimeException("不存在的线程池服务。");
-        }
+    public static synchronized ExecutorServiceObject resetExecutorServiceHandler(final String executorServiceName, final ExecutorServiceHandler executorServiceHandler) {
+        getExecutorServiceHandler(executorServiceName, null).getExecutorService().shutdown();
+        REGISTRY.put(executorServiceName, executorServiceHandler.createExecutorService(executorServiceName));
         return REGISTRY.get(executorServiceName);
-    }
-
-    /**
-     * 从注册表中删除该作业线程池服务.
-     *
-     * @param executorServiceName 名称
-     */
-    public static synchronized void remove(final String executorServiceName) {
-        REGISTRY.remove(executorServiceName);
     }
 }

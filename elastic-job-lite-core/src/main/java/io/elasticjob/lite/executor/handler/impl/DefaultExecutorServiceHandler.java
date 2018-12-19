@@ -30,7 +30,7 @@ import java.util.concurrent.ExecutorService;
 public final class DefaultExecutorServiceHandler implements ExecutorServiceHandler {
     
     @Override
-    public ExecutorService createExecutorService(final String executorServiceName) {
-        return new ExecutorServiceObject("inner-job-" + executorServiceName, Runtime.getRuntime().availableProcessors() * 2).createExecutorService();
+    public ExecutorServiceObject createExecutorService(final String executorServiceName) {
+        return new ExecutorServiceObject("inner-job-" + executorServiceName, Runtime.getRuntime().availableProcessors() * 2);
     }
 }

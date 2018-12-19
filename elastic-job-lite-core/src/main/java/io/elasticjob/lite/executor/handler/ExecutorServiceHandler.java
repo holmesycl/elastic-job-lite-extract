@@ -17,6 +17,8 @@
 
 package io.elasticjob.lite.executor.handler;
 
+import io.elasticjob.lite.util.concurrent.ExecutorServiceObject;
+
 import java.util.concurrent.ExecutorService;
 
 /**
@@ -34,5 +36,5 @@ public interface ExecutorServiceHandler {
      * @param executorServiceName 名称
      * @return 线程池服务对象
      */
-    ExecutorService createExecutorService(final String executorServiceName);
+    ExecutorServiceObject createExecutorService(final String executorServiceName);
 }
