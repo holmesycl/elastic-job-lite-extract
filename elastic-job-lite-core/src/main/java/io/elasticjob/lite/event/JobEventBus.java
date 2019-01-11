@@ -24,34 +24,34 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * 运行痕迹事件总线.
- * 
+ *
  * @author zhangliang
  * @author caohao
  */
 @Slf4j
 public final class JobEventBus {
-    
+
     private final JobEventConfiguration jobEventConfig;
-    
+
     private final ExecutorServiceObject executorServiceObject;
-    
+
     private final EventBus eventBus;
-    
+
     private boolean isRegistered;
-    
+
     public JobEventBus() {
         jobEventConfig = null;
         executorServiceObject = null;
         eventBus = null;
     }
-    
+
     public JobEventBus(final JobEventConfiguration jobEventConfig) {
         this.jobEventConfig = jobEventConfig;
         executorServiceObject = new ExecutorServiceObject("job-event", Runtime.getRuntime().availableProcessors() * 2);
-        eventBus = new AsyncEventBus(executorServiceObject.getExecutorService());
+        eventBus = new AsyncEventBus(executorServiceObject.createExecutorService());
         register();
     }
-    
+
     private void register() {
         try {
             eventBus.register(jobEventConfig.createJobEventListener());
@@ -60,7 +60,7 @@ public final class JobEventBus {
             log.error("Elastic job: create JobEventListener failure, error is: ", ex);
         }
     }
-    
+
     /**
      * 发布事件.
      *

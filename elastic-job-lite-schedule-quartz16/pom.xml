@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.elasticjob</groupId>
         <artifactId>elastic-job-lite-ext</artifactId>
-        <version>3.0.3</version>
+        <version>3.0.4</version>
     </parent>
     <artifactId>elastic-job-lite-schedule-quartz16</artifactId>
     <name>${project.artifactId}</name>
